@@ -1,0 +1,367 @@
+/* One stylesheet. No framework. Design language: Helvetica + Georgia,
+   1px black borders as the only structure. */
+
+:root {
+  --black: #000;
+  --hover-bg: #ebebeb;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+}
+
+body {
+  margin: 0 auto;
+  padding: 3rem 1.25rem 2rem;
+  max-width: 700px;
+  background: #fff;
+  color: var(--black);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 1rem;
+  line-height: 1.6;
+  text-align: justify;
+}
+
+/* ---------- Header ---------- */
+
+.site-header {
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.bio {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+}
+
+.bio-text {
+  flex: 1;
+}
+
+.bio-text p:first-child {
+  margin-top: 0;
+}
+
+.profile-pic {
+  width: 180px;
+  height: 180px;
+  object-fit: cover;
+  object-position: center 15%;
+  border: 1px solid var(--black);
+  flex-shrink: 0;
+}
+
+h1.site-name {
+  font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  font-weight: 700;
+  font-size: 1.9rem;
+  letter-spacing: -0.01em;
+}
+
+h1.site-name a {
+  text-decoration: none;
+}
+
+.subtitle {
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+/* ---------- Sections ---------- */
+
+h2 {
+  font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 0.4rem;
+  margin: 2.75rem 0 0;
+}
+
+h2.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  user-select: none;
+}
+
+.section-arrow {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-right: 1.5px solid var(--black);
+  border-bottom: 1.5px solid var(--black);
+  transform: rotate(45deg);
+  transition: transform 0.25s ease;
+  flex-shrink: 0;
+  margin-bottom: 3px;
+}
+
+.collapsible-section.collapsed .section-arrow {
+  transform: rotate(-45deg);
+}
+
+.section-body {
+  display: grid;
+  grid-template-rows: 1fr;
+  transition: grid-template-rows 0.3s ease;
+}
+
+.collapsible-section.collapsed .section-body {
+  grid-template-rows: 0fr;
+}
+
+.section-body-inner {
+  overflow: hidden;
+  min-height: 0;
+}
+
+h3 {
+  font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+p {
+  margin: 0.75rem 0;
+}
+
+ul {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+}
+
+/* ---------- Reveal animation ---------- */
+
+.reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.5s ease, transform 0.75s ease;
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.reveal-delay.reveal {
+  transition-delay: 0.25s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ---------- Links ---------- */
+
+a {
+  color: var(--black);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a:hover,
+a.selected {
+  text-decoration: underline;
+}
+
+/* Inline links in prose stay underlined for clarity */
+p a,
+article a {
+  text-decoration: underline;
+}
+
+/* ---------- Bordered rows (projects, posts, resume entries) ---------- */
+
+.row {
+  display: block;
+  padding-top: 1.25rem;
+  padding-bottom: 1.25rem;
+  padding-left: 0.5rem;
+  padding-right: 0.5rem;
+}
+
+a.row:hover,
+div.row[data-href]:hover {
+  background-color: var(--hover-bg);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+a.row:hover .row-title,
+div.row[data-href]:hover .row-title {
+  text-decoration: underline;
+}
+
+.row-top {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.row-title {
+  font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.row-sub {
+  font-family: Georgia, serif;
+  margin-top: 0.25rem;
+}
+
+.row-meta {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
+  margin-top: 0.3rem;
+}
+
+.row-body {
+  margin-top: 0.5rem;
+}
+
+.row-body ul {
+  margin-top: 0.25rem;
+}
+
+/* ---------- Tags ---------- */
+
+.tag-list {
+  display: flex;
+  flex-flow: row wrap;
+  gap: 0.5rem;
+  margin-top: 0.6rem;
+}
+
+.tag {
+  background-color: #fff;
+  border: 1px solid var(--black);
+  border-radius: 50px;
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.75rem;
+  padding: 3px 14px;
+}
+
+/* ---------- Blog post pages ---------- */
+
+.back-link {
+  display: inline-block;
+  font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.85rem;
+  font-weight: 700;
+  margin-bottom: 2rem;
+}
+
+article header {
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 1.25rem;
+  margin-bottom: 1.5rem;
+}
+
+article h1 {
+  font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 1.6rem;
+  font-weight: 700;
+  line-height: 1.25;
+}
+
+article .post-subtitle {
+  font-family: Georgia, serif;
+  font-size: 1.1rem;
+  margin-top: 0.5rem;
+}
+
+article .post-date {
+  font-family: 'Courier New', Courier, monospace;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+article :is(h2, h3, h4) {
+  border-bottom: none;
+  text-transform: none;
+  letter-spacing: normal;
+  margin: 1.75rem 0 0.5rem;
+}
+
+article h2 {
+  font-size: 1.25rem;
+}
+
+article img {
+  max-width: 100%;
+  height: auto;
+  border: 1px solid var(--black);
+}
+
+article pre {
+  overflow-x: auto;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--black);
+  font-size: 0.85rem;
+  margin: 1rem 0;
+}
+
+article code {
+  font-family: 'Courier New', Courier, monospace;
+}
+
+article blockquote {
+  margin: 1rem 0;
+  padding-left: 1rem;
+  border-left: 1px solid var(--black);
+}
+
+/* ---------- Footer ---------- */
+
+footer {
+  border-top: 1px solid var(--black);
+  margin-top: 3rem;
+  padding-top: 1rem;
+  font-family: Helvetica, 'Helvetica Neue', Arial, sans-serif;
+  font-size: 0.85rem;
+  display: flex;
+  flex-flow: row wrap;
+  gap: 1.25rem;
+}
+
+footer a {
+  font-weight: 700;
+}
+
+/* ---------- Mobile ---------- */
+
+@media only screen and (max-width: 640px) {
+  body {
+    padding-top: 2rem;
+  }
+
+  .bio {
+    flex-direction: column-reverse;
+    align-items: center;
+  }
+
+  .profile-pic {
+    width: 240px;
+    height: 240px;
+  }
+
+  .row-top {
+    flex-flow: column nowrap;
+    align-items: flex-start;
+  }
+}

@@ -1,0 +1,189 @@
+---
+import Base from '../layouts/Base.astro';
+import { getCollection } from 'astro:content';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf());
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-US', { year: 'numeric', month: 'short', day: 'numeric' }).toLowerCase();
+---
+<Base title="Michael Colonna" description="Michael Colonna is a Brooklyn-based software engineer. Software, design, art.">
+  <header class="site-header">
+    <h1 class="site-name"><a href="/">michael colonna</a></h1>
+    <p class="subtitle">software, design, art</p>
+  </header>
+
+  <div class="bio reveal">
+    <div class="bio-text">
+      <p>
+        i'm a brooklyn-based software engineer. i'm interested in how software shapes how people think and create.
+      </p>
+      <p>
+        i currently work on the backend infrastructure powering ubereats.  
+      </p>
+    </div>
+    <img class="profile-pic" src="/bio_square.jpg" alt="Michael Colonna" />
+  </div>
+
+  <section class="collapsible-section reveal reveal-delay">
+    <h2 class="section-header">resume<span class="section-arrow"></span></h2>
+    <div class="section-body">
+      <div class="section-body-inner">
+
+        <div class="row">
+          <div class="row-top">
+            <span class="row-title">senior software engineer · uber</span>
+            <span class="row-meta">2019 – present · new york, ny</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="row-title">software development engineer intern · amazon</span>
+            <span class="row-meta">may – aug 2018 · cambridge, ma</span>
+          </div>
+          <div class="row-body">
+            <ul>
+              <li>designed and built an end-to-end audio capture and processing tool for Alexa AI NLU model developers.</li>
+              <li>used WebRTC/Recorder.js frontend, Flask + Python backend.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="row-title">studio intern · steiner studios</span>
+            <span class="row-meta">jun – aug 2017 · new york, ny</span>
+          </div>
+          <div class="row-body">
+            <ul>
+              <li>rotated through marketing & booking, lighting warehouse, accounting, and stage operations.</li>
+              <li>managed client schedules, contracts, invoices, and equipment logistics.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="row-title">webmaster & editor · brown motion pictures</span>
+            <span class="row-meta">jun 2017 – may 2019 · providence, ri</span>
+          </div>
+          <div class="row-body">
+            <ul>
+              <li>built a film equipment checkout page, maintained the club website, and edited two student films.</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="row-top">
+            <span class="row-title">b.a. computer science · brown university</span>
+            <span class="row-meta">2015 – 2019</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="collapsible-section reveal">
+    <h2 class="section-header">projects<span class="section-arrow"></span></h2>
+    <div class="section-body">
+      <div class="section-body-inner">
+
+        <a class="row" href="https://mc-particles.netlify.app" target="_blank" rel="noreferrer">
+          <div class="row-top">
+            <span class="row-title">sankhara</span>
+            <span class="row-meta">2024</span>
+          </div>
+          <p class="row-sub">a meditation on impermanence</p>
+          <div class="tag-list">
+            <span class="tag">p5.js</span>
+            <span class="tag">audacity</span>
+            <span class="tag">web audio api</span>
+            <span class="tag">midjourney</span>
+          </div>
+        </a>
+
+        <div class="row" data-href="https://mc-synesthesia.netlify.app" data-target="_blank">
+          <div class="row-top">
+            <span class="row-title">synesthesia</span>
+            <span class="row-meta">2023</span>
+          </div>
+          <p class="row-sub">
+            made for the <a href="https://sfpc.study" target="_blank" rel="noreferrer">School for Poetic Computation (SFPC)</a>; a simple musical instrument that lets you compose songs in physical, 2-D space
+          </p>
+          <div class="tag-list">
+            <span class="tag">p5.js</span>
+            <span class="tag">rnbo</span>
+            <span class="tag">web audio api</span>
+          </div>
+        </div>
+
+        <a class="row" href="https://drive.google.com/file/d/1CNmHM3HYzD6SdkCjwMqXOkJZgoZ-jznB/preview" target="_blank" rel="noreferrer">
+          <div class="row-top">
+            <span class="row-title">simulacra</span>
+            <span class="row-meta">2019</span>
+          </div>
+          <p class="row-sub">
+            a virtual reality experience that captures the disembodied experience of
+            scrolling, built for Brown University's CAVE
+          </p>
+          <div class="tag-list">
+            <span class="tag">cave</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="collapsible-section reveal">
+    <h2 class="section-header">writing<span class="section-arrow"></span></h2>
+    <div class="section-body">
+      <div class="section-body-inner">
+
+        {posts.map((post) => (
+          <a class="row" href={`/blog/${post.id}/`}>
+            <div class="row-top">
+              <span class="row-title">{post.data.title}</span>
+              <span class="row-meta">{fmt(post.data.date)}</span>
+            </div>
+            {post.data.subtitle && <p class="row-sub">{post.data.subtitle}</p>}
+          </a>
+        ))}
+
+      </div>
+    </div>
+  </section>
+</Base>
+
+<script>
+  document.querySelectorAll<HTMLElement>('.section-header').forEach(header => {
+    header.addEventListener('click', () => {
+      header.closest('.collapsible-section')?.classList.toggle('collapsed');
+    });
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.1 }
+  );
+
+  document.querySelectorAll<HTMLElement>('.reveal').forEach(el => observer.observe(el));
+
+  document.querySelectorAll<HTMLElement>('div.row[data-href]').forEach(row => {
+    row.addEventListener('click', (e) => {
+      if ((e.target as HTMLElement).closest('a')) return;
+      window.open(row.dataset.href!, row.dataset.target || '_self', 'noopener,noreferrer');
+    });
+  });
+</script>

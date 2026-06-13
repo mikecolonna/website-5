@@ -1,0 +1,27 @@
+---
+import '../styles/global.css';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const { title, description = 'Michael Colonna — software, design, art.' } = Astro.props;
+---
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+  </head>
+  <body>
+    <slot />
+    <footer>
+      <a href="https://github.com/mikecolonna" target="_blank" rel="noreferrer">github</a>
+      <a href="mailto:goldquil97@gmail.com">email</a>
+      <span>© {new Date().getFullYear()} Michael Colonna</span>
+    </footer>
+  </body>
+</html>
