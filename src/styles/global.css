@@ -20,7 +20,6 @@ body {
   font-family: Georgia, 'Times New Roman', serif;
   font-size: 1rem;
   line-height: 1.6;
-  text-align: justify;
 }
 
 /* ---------- Header ---------- */
@@ -348,16 +347,36 @@ footer a {
 @media only screen and (max-width: 640px) {
   body {
     padding-top: 2rem;
+    text-align: left;
+  }
+
+  .site-header {
+    padding-bottom: 0.9rem;
+    margin-bottom: 0.9rem;
+  }
+
+  footer {
+    margin-top: 1.75rem;
   }
 
   .bio {
-    flex-direction: column-reverse;
-    align-items: center;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 1.75rem;
+  }
+
+  h2 {
+    margin-top: 1.75rem;
+  }
+
+  .row {
+    padding-top: 0.9rem;
+    padding-bottom: 0.9rem;
   }
 
   .profile-pic {
-    width: 240px;
-    height: 240px;
+    width: 200px;
+    height: 200px;
   }
 
   .row-top {
